@@ -83,3 +83,61 @@ use std::cmp::Ordering;
 //     }
 //     println!("the secret number is {}",secret_number);
 // }
+// fn main(){
+//     println!("this is a game");
+//
+//     //设定一个随机数字
+//     let ra_number = rand::thread_rng().gen_range(1..=100);
+//
+//     //输入一个猜测的数字
+//     println!("please input a number:");
+//     let mut guess_number = String::new();
+//
+//     io::stdin()
+//         .read_line(&mut guess_number)
+//         .expect("input illegal");
+//
+//     let guess_number:i32 = guess_number.trim().parse().expect("you got wrong input");
+//
+//     println!("the number you guess is {}",guess_number);
+//
+//     match guess_number.cmp(&ra_number) {
+//         Ordering::Equal => println!("you are right"),
+//         Ordering::Less => println!("less"),
+//         Ordering::Greater => println!("greater"),
+//     }
+//
+//     //告诉猜测者答案
+//     println!("the secret number is {}",ra_number);
+// }
+
+fn main(){
+    println!("Welcome to RustyBeer!");
+    println!("this is a guessing game!");
+
+    //设定一个答案
+    let sec_number = rand::thread_rng().gen_range(1..=100);
+
+    //输入一个猜测数字
+    loop {
+        println!("please input a number:");
+        let mut guess_number = String::new();
+        io::stdin()
+            .read_line(&mut guess_number)
+            .expect("Failed to read line");
+        let guess_number:u32 = guess_number.trim().parse().expect("Please type a number!");
+
+        // 输出猜测结果
+        match guess_number.cmp(&sec_number){
+            Ordering::Less => println!("Too small!"),
+            Ordering::Greater => println!("Too big!"),
+            Ordering::Equal => {
+                println!("You are right!");
+                break;
+            }
+        }
+    }
+
+
+    println!("the secret number is {}", sec_number);
+}
