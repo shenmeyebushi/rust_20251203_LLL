@@ -947,5 +947,126 @@ fn main(){
     }
 }
 
+
+
+enum Action{
+    Say(String),
+    Moveto(i32,i32),
+    ChangToColorRGB(u16,u16,u16),
+}
+
+fn main(){
+    let mut action01:[Action;5] = [
+        Action::Say("Hello,world!".to_string()),
+        Action::Moveto(18,29),
+        Action::ChangToColorRGB(255,255,0),
+        Action::Say("你好吗".to_string()),
+        Action::Moveto(355555,7123477),
+    ];
+
+    for i in action01{
+        match i {
+            Action::Say(s)=>{
+                print!("现在到了i里面，匹配到了Say。它肯定有个s参数，那么就把传入的s参数打印出来：{}\n",s);
+            },
+            Action::Moveto(m,n)=>{
+                println!("现在到了i里面，匹配到了Moveto。它肯定有两个参数，那么我们可以打印一个东西出来：{}\n",(m+n)/3);
+            },
+            Action::ChangToColorRGB(n,p,_)=>{
+                println!("rgb的数字是{},{}\n",n,p);
+            }
+        }
+    }
+}
+
+fn main(){
+    let age = Some(30);
+    println!("匹配前age={:?}",age);
+    match &age {
+        Some(y) => {println!("What is this age?_{}",y);},
+        _ => ()
+    }
+    println!("匹配后age={:?}",age)
+}
+
+
+fn function_plus_1(x:Option<&i32>)-> Option<i32>{
+    match x{
+        Some(&y) => Some(y+1),
+        None => None,
+    }
+}
+fn main(){
+    let mut m = Some(30);
+    let result = function_plus_1(m.as_ref());
+    println!("{:?}",m);
+    println!("{:?}",result);
+}
+
+
+
+struct Point{
+    x:i32,
+    y:i32,
+}
+fn main(){
+    let p = Point{x:0,y:9};
+    match p {
+        Point{x,y:0} => println!("001"),
+        // Point{x:0,y} => println!("002"),
+        Point{x,y} => println!("003"),
+    }
+}
  */
 
+//先定义了一个enum类别，里面有两个variants
+enum Media {
+    Post01(Post),
+    Weibo01(Weibo),
+}
+
+//给每个变体赋予细节内容
+pub struct Post{
+    pub title:String,
+    pub author:String,
+    pub content:String,
+    pub capacity:i32,
+}
+pub struct Weibo{
+    pub title:String,
+    pub author:String,
+    pub content:String,
+    pub capacity:i32,
+    pub source:String,
+    pub username:String,
+    pub phone_class:String,
+}
+
+//定义trait
+pub trait Summary{
+    fn summarry(&self) -> String;
+}
+
+//给每个变体赋予相应的trait
+impl Summary for Post {
+    fn summarize(&self) -> String{
+        format!("{}",self.title);
+    }
+    fn desummarize(&self) ->String{
+        format!("{}",self.content);
+    }
+}
+
+impl Summary for Weibo{
+
+}
+
+fn main(){
+    let post_01 = Post;
+    let weibo_01 = Weibo;
+    println!("{:?}",post_01);
+    println!("{:?}",weibo_01);
+
+    post_01.summarize();
+    weibo_01.summarize();
+}
