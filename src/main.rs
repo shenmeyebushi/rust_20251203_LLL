@@ -52,7 +52,7 @@ fn main(){
 }
 fn main(){
     println!("Read_line 方法.");
-    let mut ipput_01 = String::new();
+    let mut iput_01 = String::new();
     io::stdin()
         .read_line(&mut ipput_01)
         .expect("you got wrong input");
@@ -476,7 +476,7 @@ fn main(){
 
 下面是find和rfind方法的用法
 fn main(){
-    let s = String::from("hello world you r very nice and strong");
+    let s = String::from("hello world you are very nice and strong");
     println!("find 'very' is located at: {}",s.find("very").unwrap());
 }
 
@@ -484,7 +484,7 @@ fn main(){
     // 设定一个字符串，以空格为分割依据
     //以http协议的请求行为例
     let mut string_http = "GET /usr/rust/index.html HTTP/1.1.0 \r\n";
-    let mut sring_http = string_http.trim();
+    let mut string_http = string_http.trim();
     println!("目前|{}|",&string_http);
     //使用split,以空格为分割依据
     let result_01 = string_http.split(' ');
@@ -497,7 +497,7 @@ fn main(){
     fn name_of_type<T>(_:T) -> &'static str{
         return std::any::type_name::<T>();
     }
-    //打印result_01\02里面的eliment，如果有的话。
+    //打印result_01\02里面的element，如果有的话。
     for i in result_01{
         println!("到了C这里了\n{}",i);
     }
@@ -532,7 +532,7 @@ fn main(){
     ;
     let code_01 = QrCode::new(&content_01).unwrap();
     let image_01 = code_01.render::<Luma<u8>>().build();
-    image_01.save("zhangdai.png").unwrap();
+    image_01.save("zhang_dai.png").unwrap();
     println!("OK!");
 }
 
@@ -714,7 +714,7 @@ fn main(){
     //     println!("wrong");
     // }
 
-    // let c = a;
+    // let c = &a;
     // let d = c;
     // println!("{}",d);
     // let e = b;
@@ -844,7 +844,7 @@ fn main() {
     for i in &vec_07{
         println!("{}",i);
     }
-}
+
 */
 
 //Linked list链表的知识
@@ -1029,12 +1029,14 @@ enum Media {
 }
 
 //给每个变体赋予细节内容
+#[derive(Debug)]
 pub struct Post{
     pub title:String,
     pub author:String,
     pub content:String,
     pub capacity:i32,
 }
+#[derive(Debug)]
 pub struct Weibo{
     pub title:String,
     pub author:String,
@@ -1047,34 +1049,53 @@ pub struct Weibo{
 
 //定义trait
 pub trait Summary{
-    fn summarry(&self) -> String;
+    fn summarize(&self) -> String;
+    fn desummarize(&self) -> String;
 }
 
 //给每个变体赋予相应的trait
 impl Summary for Post {
     fn summarize(&self) -> String{
-        format!("{}",self.title);
+        format!("这个post的标题是：{}",self.title)
     }
     fn desummarize(&self) ->String{
-        format!("{}",self.content);
+        format!("这个post的具体内容是：{}",self.content)
     }
 }
 
 impl Summary for Weibo{
-    fn summarize(&self)->{
-        format!("这个微博的标题是{}，来源于这种手机：{}",self.title,self.phone_class);
+    fn summarize(&self) -> String {
+        format!("这个微博的标题是{}，来源于这种手机：{}",self.title,self.phone_class)
     }
-    fn desummarize(&self) -> String{
-        format!("rust真的很严谨");
+    fn desummarize(&self) -> String {
+        format!("这个微博的具体内容是：rust真的很严谨")
     }
 }
 
 fn main(){
-    let post_01 = Post;
-    let weibo_01 = Weibo;
+    let post_01 = Post{
+        title:String::from("大干快上！"),
+        author:String::from("HU Feng"),
+        content:String::from("今年是个丰收年，但是不能继续玩。"),
+        capacity:128,
+    };
+    let weibo_01 = Weibo{
+        title:String::from("《汽车消费观察》"),
+        author:String::from("记者 刘禹锡"),
+        content:String::from("美国和加拿大在人均汽车销量上显著高于其他国家，反映了其成熟的汽车消费市场。"),
+        capacity: 43,
+        source:String::from("Chatgpt"),
+        username:String::from("LIU Jinhua"),
+        phone_class:String::from("Iphone"),
+    };
+
     println!("{:?}",post_01);
     println!("{:?}",weibo_01);
 
-    post_01.summarize();
-    weibo_01.summarize();
+    let a = post_01.summarize();
+    let c = weibo_01.summarize();
+    let b = post_01.desummarize();
+    let d =weibo_01.desummarize();
+
+    println!("{}\n{}\n{}\n{}\n",a,b,c,d);
 }
