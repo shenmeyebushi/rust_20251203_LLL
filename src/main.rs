@@ -1018,14 +1018,11 @@ fn main(){
         Point{x,y} => println!("003"),
     }
 }
- */
-
- */
 
 //先定义了一个enum类别，里面有两个variants
 enum Media {
-    Post01(Post),
-    Weibo01(Weibo),
+    Post,
+    Weibo,
 }
 
 //给每个变体赋予细节内容
@@ -1098,4 +1095,76 @@ fn main(){
     let d =weibo_01.desummarize();
 
     println!("{}\n{}\n{}\n{}\n",a,b,c,d);
+}
+
+ */
+
+use::fmt::{Display};
+use
+trait Draw {
+    fn draw(&self)-> String;
+}
+pub struct Screen<T:Draw>{
+    pub components: Vec <T>,
+}
+
+impl<T> Screen<T> where T:Draw{
+    pub fn run(&self){
+        for component in self.components.iter(){
+            component.draw()
+        }
+    }
+}
+
+fn main(){
+    let screen01 = Screen{
+        components:vec![
+            Box::new(SelectBox{
+                width:75,
+                height:125,
+                option:vec![
+                    String::from(""),
+                    String::from(""),
+                    String::from(""),
+                ],
+            }),
+            Box::new(SelectBox{
+                width:95,
+                height:60,
+                option:vec![
+                    String::from(""),
+                    String::from(""),
+                    String::from(""),
+                ],
+            }),
+        ],
+    };
+
+    screen01.run();
+}
+
+
+
+ */
+
+#[derive(Debug)]
+pub struct ImportantExcerpt<'a>{
+    part1:&'a str,
+    part2:&'a str,
+}
+
+fn main(){
+    let i;
+    let novel01 = String::from("Call me Ishmael. Some years ago...");
+
+    {
+        let first_sentence = novel01.split('.').next().expect("Could not find a '.'.");
+        i = ImportantExcerpt{
+            part1:first_sentence,
+            part2:first_sentence,
+
+
+        }
+    }
+    println!("{:?}",i);
 }
