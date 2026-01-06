@@ -1145,8 +1145,6 @@ fn main(){
 
 
 
- */
-
 #[derive(Debug)]
 pub struct ImportantExcerpt<'a>{
     part1:&'a str,
@@ -1162,9 +1160,302 @@ fn main(){
         i = ImportantExcerpt{
             part1:first_sentence,
             part2:first_sentence,
-
-
         }
     }
     println!("{:?}",i);
 }
+
+
+
+//引用的生命周期，在一个作用域内，无可变权限的引用和有可变权限的引用不能同时存在。
+struct Foo;
+impl Foo {
+    fn mutate_and_share<'a>(&'a self)-> &'a Self{
+        &self
+    }
+    fn share<'a>(&'a self){}
+}
+
+fn main() {
+    'b:{
+       let mut foo:Foo = Foo;
+       foo.mutate_and_share();
+       foo.share();
+    }
+}
+
+
+
+#[derive(Debug)]
+struct Structure(i32);
+#[derive(Debug)]
+struct Person<'a>{
+    name: &'a str,
+    age: u8,
+}
+fn main(){
+    // println!("{number:>100}",number= 1);
+    // let number:f64 = 2.0;
+    // let width:usize = 5;
+    // println!("{number:>width$}");
+    // let s = Structure(5);
+    // println!("{:?}",s);
+    let name = "Peter";
+    let age = 25;
+    let peter = Person{name, age};
+    println!("{:?}",peter);
+}
+
+
+
+
+#[derive(Debug)]
+struct Structure{
+    name : String,
+    age : u32,
+}
+
+impl fmt::Display for Structure{
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}-{}", self.name, self.age)
+    }
+}
+
+fn main() {
+    let peter = Structure{
+        name : String::from("peter"),
+        age : 28,
+    };
+    println!("{}", peter);
+}
+
+
+
+#[derive(Debug)]
+struct Complex{
+    real:f64,
+    imag:f64,
+}
+
+impl fmt::Display for Complex {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "({}, {:+}i)", self.real, self.imag)
+    }
+}
+fn main(){
+    let p1 = Complex{
+        real: 3.3,
+        imag: 7.2,
+    };
+    let p2 = Complex{
+        real: 4.7,
+        imag: -2.3,
+    };
+    println!("Display: {}", p1);
+    println!("Debug: {:?}\n", p1);
+    println!("Display: {}", p2);
+    println!("Debug: {:?}\n", p2);
+
+}
+
+
+
+//打印并display一个list(vec<i32>)
+struct List(Vec<i32>);
+
+impl fmt::Display for List{
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let vec = &self.0;
+
+        write!(f, "[")?;
+
+        for (i,v) in vec.iter().enumerate() {
+            if i != 0 {write!(f, ",")?;}//?的作用是告诉rustc在出错时返回；
+            write!(f, "{}:{}", i,v)?;
+        }
+        write!(f, "]")
+
+    }
+}
+fn main() {
+    let v = List(vec![1,2,3,4,5]);
+    println!("{}", v);
+}
+
+
+use std::fmt::{self,Formatter,Display};
+
+struct City{
+    name:&'static str,
+    lat:f32,
+    lon:f32,
+}
+
+impl Display for City{
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        let lat_c = if self.lat >= 0.0 {"N"} else {"S"};
+        let lon_c = if self.lon >= 0.0 {"E"} else {"W"};
+        write!(f,"{}:    {:.3} {}_{:.3}{}",
+        self.name,self.lat.abs(),lat_c,self.lon.abs(),lon_c)
+    }
+}
+#[derive(Debug)]
+struct  Color{
+    red:u8,
+    green:u8,
+    blue:u8,
+}
+
+impl Display for Color{
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        write!(f,"(red:{:0>3},green:{:0>3},blue:{:0>3})",
+               self.red,self.green,self.blue)
+    }
+}
+
+fn main() {
+    for city in [
+        City{name:"Dublin",lat:53.0347778,lon:-6.259722},
+        City{name:"Oslo",lat:59.95,lon:10.75},
+        City{name:"Vancouver",lat:49.25,lon:-123.1}
+    ]{
+        println!("{}", city);
+    }
+
+    for color in [
+        Color{red:128, green:255, blue:90},
+        Color{red:0, green:3, blue:254},
+        Color{red:0, green:0, blue:0},
+    ]{
+        println!("RGB:{}",color);
+
+    }
+}
+
+use::std::fmt::{self,Formatter,Display};
+#[derive(Debug)]
+struct Matrix1(f32, f32, f32,f32);
+
+fn main() {
+    let long_tuple = (1u8,2u16, 3u32, 4u64,
+                      -1i8, -2i16, -3i32, -4i64,
+    0.1f32,0.2f64,'a',true);
+
+    println!("长元组的第一个值：{}",long_tuple.0);
+    println!("长元组的第二个值：{}",long_tuple.1);
+
+    let tuple_of_tuples = ((1u8, 2u16, 2u32), (4u64, -1i8), -2i16);
+    println!("{:?}",tuple_of_tuples);
+
+    let pair02 = (1,true);
+    println!("{:?}",pair02);
+    println!("{:?}",reverse(pair02));
+    let matrix01=Matrix1(1.1,2.2,3.3,4.4);
+    println!("{:?}",matrix01);
+
+
+}
+
+fn reverse(p: (i32,bool)) -> (bool,i32) {
+    let (x,y) = p;
+    (y,x)
+}
+
+
+//定义一个矩形，为它安装个计算面积的工具箱；
+
+use::std::fmt::{self,Formatter,Display};
+
+#[allow(dead_code)]
+
+#[derive(Debug)]
+struct Person{
+    name:String,
+    age:u32,
+}
+// #[derive(Debug)]
+// struct Unit;
+#[derive(Debug)]
+struct Point{
+    x:f32,
+    y:f32,
+}
+#[derive(Debug)]
+struct Rectangle{
+    top_left:Point,
+    bottom_right:Point,
+}
+trait CalculateArea{
+    fn area(&self) -> f32{
+        self.area()
+    }
+}
+impl CalculateArea for Rectangle{
+    fn  area(&self) -> f32{
+        let length = self.bottom_right.x - self.top_left.x;
+        let width = self.bottom_right.y - self.top_left.y;
+        let area = length*width;
+        if area <= 0.0 {
+            -area
+        }else {
+            area
+        }
+    }
+}
+fn main() {
+    let name = String::from("Peter");
+    let age: u32 = rand::thread_rng().gen_range(1..=100);
+    let peter_hall = Person { name, age };
+    println!("peter_hall = {:?}", peter_hall);
+
+    let point1 = Point { x: 5.2, y: 0.4 };
+    let point2 = Point { x: 10.3, y: 0.2 };
+    let rectangle = Rectangle { top_left: point1, bottom_right: point2 };
+    println!("area of rectangle = {}", rectangle.area());
+}
+
+
+
+
+//定义一个矩形，为它安装个计算面积的工具箱；
+use std::fmt::{self,Display,Formatter};
+//先定义点；
+#[derive(Debug)]
+struct Point{
+    x: f64,
+    y: f64,
+}
+
+//再定义N，矩形，矩形就是在平面上的两个点构成的图形；
+struct Rectangle{
+    top_left: Point,
+    bottom_right: Point,
+}
+
+//再定义这个世界上有一种V，“工具/能力”，trait，可以为任何一个事物计算面积
+trait CalculateArea{
+    fn area(&self) -> f64;
+}
+
+//最后把这种能力安排给Rectangle
+
+impl CalculateArea for Rectangle{
+    fn area(&self) -> f64{
+        let width = self.bottom_right.x - self.top_left.x;
+        let height = self.bottom_right.y - self.top_left.y;
+        let area = if width * height>0.0 {width*height} else {0.0-width*height};
+        return area;
+    }
+}
+
+fn main() {
+    let rec_01 = Rectangle{
+        top_left: Point{x: 12.0, y: 3.0},
+        bottom_right: Point{x: 9.0, y: 15.0},
+    };
+    println!("S={}",rec_01.area());
+}
+
+
+ */
+
