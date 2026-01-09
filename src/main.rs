@@ -1913,8 +1913,15 @@ fn main() {
         content:"this is openbox NO.01!".to_string(),
     };
 
-    let mut closebox_01 = my_mod_01::CloseBox::new(openbox_01);
-    println!("{}", closebox_01.content);
+    // let mut closebox_01 =my_mod_01::CloseBox{
+    //     content:"this is closebox NO.01!".to_string(),
+    // };
+
+    let mut closebox_01 = my_mod_01::CloseBox::new(
+        "this is closebox NO.01!".to_string(),
+    );
+
+    println!("{}",openbox_01.content);
 }
 
 
