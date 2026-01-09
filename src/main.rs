@@ -1457,5 +1457,466 @@ fn main() {
 }
 
 
+//枚举
+enum WebEventVeryManyLotsOfThingsInTheNet{
+    PageLoad,
+    PageUnload,
+    KeyPress(char),
+    KeyRelease(char),
+    Paste(String),
+    Click{x:i64, y:i64},
+}
+type WebEvent = WebEventVeryManyLotsOfThingsInTheNet;
+fn inspect(event: WebEvent){
+    match event {
+        WebEvent::PageLoad => { println!("page loaded"); },
+        WebEvent::PageUnload => { println!("page unloaded"); },
+        WebEvent::KeyPress(x) => { println!("key pressed: {}", x); },
+        WebEvent::KeyRelease(y) => { println!("key released: {}", y); },
+        WebEvent::Paste(x) => {println!("您刚才粘贴了————{}", x);},
+        WebEvent::Click{x, y} => { println!("您点击的坐标是—————({}, {})", x, y); },
+    }
+}
+
+fn main() {
+    let press01 = WebEvent::KeyPress('l');
+    let pasted01 = WebEvent::Paste("你的文本".to_string());
+    let click01 = WebEvent::Click{x:45,y:3489};
+    let unload01 = WebEvent::PageUnload;
+
+    inspect(press01);
+    inspect(pasted01);
+    inspect(click01);
+    inspect(unload01);
+}
+
+
+
+//关于type、trait（注意，trait的声明里只有fn的签名，没有function的body；
+enum VeryVeryLongVerboseEnumOfThingsToDoWithNumbers {
+    Add,
+    Subtract,
+}
+
+type Very = VeryVeryLongVerboseEnumOfThingsToDoWithNumbers;
+
+trait FangFa {
+    fn run(&self,x:i32,y:i32)->&str;
+    fn lift(&self) ->&str;
+}
+
+impl FangFa for Very {
+    fn run(&self,x:i32,y:i32)->&str{
+        match self {
+            Self::Add => {println!("x+y={}",x+y);
+                "add OK"},
+            Self::Subtract => {println!("x-y={}",x-y);
+                "subtract OK"},
+        }
+    }
+    fn lift(&self)->&str {
+        match self {
+            Self::Add => {"您传入的是add"},
+            Self::Subtract=> {"您传入的是subtract"},
+        }
+    }
+}
+
+fn main() {
+    let very=Very::Add;
+    let n = very.run(2,3);
+    println!("{}",n);
+    let m = very.lift();
+    println!("{}",m);
+}
+
+
+
+//手动作用域限定——也就是把use写在main里面，这样可以方便很多，
+//不需要写那么多路径
+enum Stage{
+    Beginner,
+    Advanced,
+}
+enum Role{
+    Student,
+    Teacher,
+}
+
+fn main() {
+    use crate::Stage::*;
+    use crate::Role::*;
+
+    let fu_yi_fei = Student;
+    let zhang_ying = Teacher;
+    let stage_01 = Beginner;
+    let stage_02 = Advanced;
+
+    match fu_yi_fei {
+        Student => println!("Fuyifei is a student."),
+        Teacher => println!("Fuyifei is a teacher."),
+    }
+
+    match zhang_ying {
+        Student => println!("ZhangYing is a student"),
+        Teacher => println!("ZhangYing is a teacher"),
+    }
+
+    match stage_01 {
+        Beginner => {println!("This is a beginner.");},
+        Advanced => println!("This is a advanced."),
+    }
+    match stage_02 {
+        Beginner => println!("This is a beginner"),
+        Advanced => println!("This is a advanced."),
+    }
+}
+
+//冻结
+fn main(){
+    let mut _mutable_int = 78i32;
+    {
+        let _mutable_int = _mutable_int;
+        // _mutable_int = 40;
+    }
+    _mutable_int = 3;
+}
+
+
+//if else
+fn main(){
+    let n = 5;
+    if n<0{
+        println!("{}是负数。",n);
+    }else if n>0{
+        println!("{}是正数。",n);
+    }else {
+        println!("{}是零。",n);
+    }
+
+    let big_n =
+    if n<10 && n>-10{
+        println!("big_n是一个小数字。");
+        n*10
+    }else {
+        println!("big_n是一个大数字。");
+        n/2
+    };
+    println!("{}", big_n);
+}
+
+//loop
+fn main() {
+    let mut count = 0i32;
+    loop {
+        count += 1;
+
+        if count == 5{
+            continue
+        }else {
+            println!("{}", count);
+        }
+
+        if count == 19{
+            break;
+        }
+
+    }
+}
+
+
+fn main() {
+    let mut counter = 0;
+    let result = loop{
+        counter += 1;
+        if counter == 10 {
+            break counter*2;
+        }
+    };
+    assert_eq!(result,20);
+}
+
+fn main() {
+    for mut i in 0..=100{
+        println!("i={}",i);
+        i+=1;
+    }
+}
+
+
+enum Foo{
+    Bar,Baz,Qux(u32)
+}
+fn main() {
+    let a = Foo::Bar;
+    let b = Foo::Baz;
+    let c = Foo::Qux(100);
+
+    if let Foo::Bar = a {
+        println!("Hello, world! a 是Foo的一种变体，它是Bar类型");
+    }//如果匹配失败，则nothing发生
+}
+
+
+#[derive(Debug)]
+enum Foo{Bar}
+
+fn main(){
+    let a = Foo::Bar;
+    if let Foo::Bar = a{
+        println!("{:?}",a);
+    }
+}
+
+
+fn main() {
+    let mut u = Some(3);
+    loop {
+        match u {
+            Some(i) =>
+                if i>=19{
+                    println!("Some的盒子里装着的数值是大于8的整数。");
+                    break
+                }else {
+                    println!("没什么事情发生，一切顺利。");
+                    u = Some(i+3);
+                },
+            None => break,
+            _=>break,
+        }
+    }
+}
+
+
+fn main() {
+    let mut u = Some(19);
+    loop {
+        match u {
+            Some(i)=>{
+                if i >=29{
+                    println!("u已经大于29了。");
+                    // u=Some(i+1);
+                }else {
+                    println!("");
+                    break
+                }
+            }
+            _=> println!{"OK"}
+        }
+    }
+    println!("最终，u={}",u.expect("未能成功！"));
+}
+
+
+fn main(){
+    let mut n = Some(9);
+    loop {
+        match n {
+            Some(i) => { println!("{}",n.expect("Err!"));
+                if i>=19 {
+                    println!("i大于19！");
+                    break
+                }
+                else {
+                    n = Some(i+1);
+                }
+            },
+
+            None =>{ println!("None");
+            },
+
+            _=>{ println!("0x0x0x");
+            },
+        }
+    }
+}
+
+fn main(){
+    let mut n = 0;
+    loop {
+        match n {
+            0 => {
+            println!("0");
+            n+=1;
+            if n == 10 {
+                break;
+            }
+        }
+    }
+}
+
+    println!("{}",n);
+}
+
+fn main(){
+    let mut n = 2;
+
+    let u =|m: i32| m+n;
+    println!("{}",u(3));
+}
+
+
+fn main(){
+    let mut u = 23;
+    fn fuh(&x:i32)->i32{
+
+    }
+    let i = fuh(3);
+    println!("{}",i);
+}
+
+
+
+
+struct Point{
+    x: f64,
+    y: f64,
+}
+
+impl Point{
+    fn new(x: f64, y: f64) -> Point{
+        Point{x: x, y: y}
+    }
+
+    fn original() -> Point{
+        Point{x: 0.0, y: 0.0}
+    }
+
+
+}
+
+
+struct Rectangle{
+    p1:Point,
+    p2:Point,
+}
+
+impl Rectangle{
+    fn area(&self) -> f64{
+        let Point{x: x1, y: y1} = &self.p1;
+        let Point{x: x2, y: y2} = &self.p2;
+        ((x1-x2)*(y1-y2)).abs()
+    }
+
+    fn perimeter(&self) -> f64{
+        let Point{x: x1, y: y1} = &self.p1;
+        let Point{x: x2, y: y2} = &self.p2;
+        2.0*((x1-x2).abs()+(y1-y2).abs())
+    }
+
+    fn translate(&mut self, x: f64, y: f64){
+        self.p1.x += x;
+        self.p2.x += x+3.0;
+        self.p1.y += y+4.0;
+        self.p2.y += y+9.0;
+    }
+}
+#[derive(Debug)]
+struct Pair(Box<i32>, Box<i32>);
+impl Pair{
+    fn destroy(self) {
+        let Pair(first, second) = self;
+        println!("first: {}, second: {}", first, second);
+    }
+}
+
+fn main() {
+    let mut rectangle01 = Rectangle{
+        p1:Point::original(),
+        p2:Point{x: 9.0, y: 6.0},
+    };
+    println!("Rectangle area: {}", rectangle01.area());
+    println!("Rectangle perimeter: {}", rectangle01.perimeter());
+    let mut new_rectangle = Rectangle {
+        p1:Point::new(rectangle01.p1.x,rectangle01.p1.y),
+        p2:Point::new(rectangle01.p2.x,rectangle01.p2.y),
+    };
+    new_rectangle.translate(5.0,4.5);
+    println!("New Rectangle area: {}", new_rectangle.area());
+    println!("New Rectangle perimeter: {}", new_rectangle.perimeter());
+    let pair01 = Pair(Box::new(12),Box::new(6));
+    pair01.destroy();
+
+}
+
+
+fn main() {
+    use std::mem;
+
+    let color = String::from("red");
+    let print = ||println!("{}", color);
+    print();
+    // let _redborrow=&color;
+    // print();
+    let mut count = 0;
+    let mut inc = ||{
+        loop{
+            if count<=18{
+                count+=1;
+                println!("'count':{}", count);
+            }else {
+                break
+            }
+        }
+        println!("再一次打印'count':{}",count);
+    };
+    inc();
+}
+
+
+
+
+ //这是Fn、FnMut、FnOnce三种闭包，fn（）可以自动转换成Fn（）。
+fn apply<T>(f:T)where
+    T:FnOnce(){
+    f()
+}
+
+fn call_me<F:Fn()>(f:F){
+    f()
+}
+
+fn function(){
+    println!("函数内部");
+}
+
+fn main(){
+    let closure = || println!("闭包内部");
+    call_me(function);
+    call_me(closure);
+}
  */
+
+mod my_mod_01{
+
+    //struct一个OpenBox
+    pub struct OpenBox<T>{
+        pub content: T,
+    }
+
+    //struct一个CloseBox
+    pub struct CloseBox<T>{
+        content: T,
+    }
+
+    impl<T> CloseBox<T>{
+        pub fn new(c: T)->Self{
+            CloseBox{
+                content:c,
+            }
+        }
+    }
+}
+
+fn main() {
+    let mut openbox_01 =my_mod_01::OpenBox{
+        content:"this is openbox NO.01!".to_string(),
+    };
+
+    let mut closebox_01 = my_mod_01::CloseBox::new(openbox_01);
+    println!("{}", closebox_01.content);
+}
+
+
+
 
