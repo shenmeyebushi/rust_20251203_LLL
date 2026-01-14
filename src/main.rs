@@ -1885,7 +1885,7 @@ fn main(){
     call_me(function);
     call_me(closure);
 }
- */
+
 
 mod my_mod_01{
 
@@ -1913,7 +1913,7 @@ fn main() {
         content:"this is openbox NO.01!".to_string(),
     };
 
-    // let mut closebox_01 =my_mod_01::CloseBox{
+    // let mut closebox_01 =my_mod_01::Clos             eBox{
     //     content:"this is closebox NO.01!".to_string(),
     // };
 
@@ -1922,8 +1922,108 @@ fn main() {
     );
 
     println!("{}",openbox_01.content);
+    // println!("{}",closebox_01.content);
+}
+
+fn main() {
+    let mut s = "        jintian ni chifan le ma?".to_string();
+    return_01(&s)
+}
+
+fn return_01(s:&String)->usize{
+    let bytes = s.as_bytes();
+    for (i,&item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return i;
+        }
+    }
+}
+
+fn main() {
+    let s = String::from("jintian ni chifan le ma?");
+    let s_slice = &s[0..7];
+    println!("{}", s_slice);
+}
+
+struct  User<'a> {
+    name: String,
+    id:usize,
+    address:&'a  str,
+    short_name:char,
+    money:i32,
+}
+fn main() {
+
+    let mut user_01 = User{
+        name:String::from("Qiu_Sen"),
+        id:370785192202,
+        address:"192.168.0.1",
+        short_name:'s',
+        money:100,
+    };
+    user_01.short_name = 'd';
+    println!("{}",user_01.short_name);
+
 }
 
 
 
+fn main() {
+    // let w = 3;
+    // let h = 12;
+    // println!("{}",area_of_rectangle(w,h));
+    let rec_01 = (1280, 720);
+    println!("The area of the rectangle is {} square pixels.", area_of_rectangle(rec_01));
+}
 
+fn area_of_rectangle(dim:(u32,u32)) -> u32 {
+    dim.0*dim.1
+}
+
+
+struct Rectangle{
+    width: u32,
+    height: u32,
+}
+
+fn area_of_rectangle(x:&Rectangle) -> u32{
+    x.width * x.height
+}
+
+fn main(){
+    let rec_02 = Rectangle{width: 2, height: 4};
+    let rec_03 = Rectangle{width: 2, height: 3};
+    println!("{}",area_of_rectangle(&rec_02));
+    println!("{}",area_of_rectangle(&rec_03));
+}
+
+ */
+
+struct Rectangle{
+    width: u32,
+    height: u32,
+}
+trait Area{
+    fn area(&self) -> u32;//签名
+}
+trait New{
+    fn new(x: u32, y: u32) -> Self;//签名
+}
+impl Area for Rectangle{
+    fn area(&self) -> u32{ self.width * self.height }
+}
+impl New for Rectangle{
+    fn new(width:u32,height:u32)->Self{ Rectangle{width, height} }
+}
+
+fn main(){
+    let rec_03 = Rectangle{ width: 30, height: 80};
+    let rec_04 =Rectangle:: new(12,6);//有两种调用方法，这里是静态调用
+    let area_of_rec_04 = Rectangle::area(&rec_04);//这里是实例调用
+
+    println!("新的矩形REC_03的宽度是{}，高度是{},面积是{}。",
+        rec_03.width,rec_03.height,rec_03.area());
+    println!("新的矩形REC_04的宽度是{}，高度是{},面积是{}。",
+        rec_04.width,rec_04.height,rec_04.area());
+    println!("新的矩形REC_04的面积是{}。",area_of_rec_04);
+}
