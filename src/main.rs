@@ -5,7 +5,7 @@ use qrcode::QrCode;
 use image::Luma;
 use std::collections::HashMap;
 use std::any::type_name;
-
+use std::arch::aarch64::int32x2_t;
 /*
 fn main() {
     println!("Today is the first day of my learning rust language.");
@@ -2085,16 +2085,54 @@ fn main(){
     println!("vec_03 = {:?}", vec_03);
 }
 
- */
+
 fn main() {
-    let v = vec![23,4,5,8,5,1,3,5,8];
+    let mut v = vec![23,4,5,8,5,1,3,5,8];
 
-    println!("{:?}", v.len());
+    // println!("{:?}", v.len());
 
-    match v.get(100) {
-        Some(x) => println!("{}",x),
-        None => println!("not found"),
+    // match v.get(100) {
+    //     Some(x) => println!("{}",x),
+    //     None => println!("not found"),
+    // }
+    // let mut f = &mut v[5];
+    // *f = 345345354;
+    // println!("{:?}",v);
+    for i in &mut v {
+        *i = *i +50;
+        println!("{}",i);
     }
+
 }
 
 
+#[derive(Debug)]
+enum Message<'a>{
+    Quit(String),
+    IpV4(String),
+    IpV6(String),
+    Float(f32),
+    Int(i32),
+    Content(&'a str),
+}
+
+fn main(){
+    let v_02 = vec![
+        Message::Content("today is a rainy day"),
+        Message::Float(34.33),
+        Message::Int(3),
+        Message::IpV6("1.2.3.4".to_string()),
+        Message::IpV6("192.254.3.4".to_string()),
+        Message::Quit("赶快退出！".to_string())
+    ];
+    println!("{:?}",v_02);
+}
+
+ */
+fn main() {
+    let s1 = String::from("hello");
+    let s2 = String::from("world");
+    let s3 = s1 + " " + &s2 + "!";
+    let s4 = s3.clone();
+    println!("{}",s4);
+}
