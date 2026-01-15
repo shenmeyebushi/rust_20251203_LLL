@@ -1997,7 +1997,6 @@ fn main(){
     println!("{}",area_of_rectangle(&rec_03));
 }
 
- */
 
 struct Rectangle{
     width: u32,
@@ -2027,3 +2026,75 @@ fn main(){
         rec_04.width,rec_04.height,rec_04.area());
     println!("新的矩形REC_04的面积是{}。",area_of_rec_04);
 }
+struct Rectangle{
+    w:i32,
+    h:i32,
+}
+
+impl Rectangle{
+    fn new(w:i32,h:i32) -> Rectangle{
+        Rectangle{w:w,h:h}
+    }
+
+    fn area(&self) -> i32{
+        self.w * self.h
+    }
+
+    fn can_hold(&self, other: &Rectangle) -> bool{
+        // if self.w > other.w {
+        //     if self.h > other.h {
+        //         return true;
+        //     }else {
+        //         return false;
+        //     }
+        // }else {
+        //     return false;
+        // }
+        if (self.w>other.w && self.h>other.h)||(self.h>other.w&&self.w>other.h){
+            return true;
+        }else {
+            false
+        }
+    }
+}
+
+fn main(){
+    let r01=Rectangle::new(45,35);
+    let r02=Rectangle::new(30,40);
+    let area01= r01.area();
+    println!("area={}",area01);
+    let o:bool = r01.can_hold(&r02);
+    println!("{}",o);
+}
+
+fn main(){
+
+    let mut vec_01= Vec::new();
+    let mut vec_02 : Vec<i32> = Vec::new();
+    vec_01.push(32);
+    vec_02.push(32);
+    vec_01.push(33);
+    vec_02.push(33);
+    // println!("{:?}", vec_01);
+
+    let mut vec_03 = vec![20,67,24,5,234455,88];
+    // println!("{}",vec_03[2])
+    let xvr = &mut vec_03[5];
+    *xvr = 9;
+    println!("xvr = {}", xvr);
+    println!("vec_03 = {:?}", vec_03);
+}
+
+ */
+fn main() {
+    let v = vec![23,4,5,8,5,1,3,5,8];
+
+    println!("{:?}", v.len());
+
+    match v.get(100) {
+        Some(x) => println!("{}",x),
+        None => println!("not found"),
+    }
+}
+
+
