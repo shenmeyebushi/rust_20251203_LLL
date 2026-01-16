@@ -2145,7 +2145,7 @@ fn main() {
 
 }
 
- */
+
 //关于chars、bytes
 fn main() {
     let s5 = String::from("jintian shi haorizi.");
@@ -2176,9 +2176,9 @@ fn main() {
     }
 }
 
- */
 
-//hashmap的用法，以及zip把两个vec拉链成一个hashmap的用法
+//hashmap的用法，以及zip把两个vec拉链成一个hashmap的用法；
+//对于实现了copy trait的数据类型，例如i32，它们的所有权会转移入hashmap中去；
 fn main() {
     let v1 = vec![1, 2, 3];
     let v2 = vec!['z', 'c', 'd'];
@@ -2187,3 +2187,8 @@ fn main() {
         v2.iter().cloned().zip(v1.iter().cloned()).collect();
     println!("{:?}", scores);
 }
+
+
+ */
+
+//hashmap的用法
