@@ -1997,7 +1997,7 @@ fn main(){
     println!("{}",area_of_rectangle(&rec_03));
 }
 
-
+//trait的用法：定义一个rectangle，然后trait、impl，然后调用
 struct Rectangle{
     width: u32,
     height: u32,
@@ -2017,7 +2017,7 @@ impl New for Rectangle{
 
 fn main(){
     let rec_03 = Rectangle{ width: 30, height: 80};
-    let rec_04 =Rectangle:: new(12,6);//有两种调用方法，这里是静态调用
+    let rec_04 =Rectangle::new(12,6);//有两种调用方法，这里是静态调用
     let area_of_rec_04 = Rectangle::area(&rec_04);//这里是实例调用
 
     println!("新的矩形REC_03的宽度是{}，高度是{},面积是{}。",
@@ -2026,6 +2026,9 @@ fn main(){
         rec_04.width,rec_04.height,rec_04.area());
     println!("新的矩形REC_04的面积是{}。",area_of_rec_04);
 }
+
+
+//定义一个rectangle，然后安装关联函数；
 struct Rectangle{
     w:i32,
     h:i32,
@@ -2067,8 +2070,9 @@ fn main(){
     println!("{}",o);
 }
 
-fn main(){
 
+//vec的用法，push进去
+fn main(){
     let mut vec_01= Vec::new();
     let mut vec_02 : Vec<i32> = Vec::new();
     vec_01.push(32);
@@ -2085,7 +2089,7 @@ fn main(){
     println!("vec_03 = {:?}", vec_03);
 }
 
-
+//vec的get方法，*解引用改掉vec中的某个值
 fn main() {
     let mut v = vec![23,4,5,8,5,1,3,5,8];
 
@@ -2105,7 +2109,7 @@ fn main() {
 
 }
 
-
+//enum和vec的配合使用，vec中存储了enum的variants类型
 #[derive(Debug)]
 enum Message<'a>{
     Quit(String),
@@ -2128,11 +2132,58 @@ fn main(){
     println!("{:?}",v_02);
 }
 
- */
+//+号的使用，clone的使用
 fn main() {
     let s1 = String::from("hello");
     let s2 = String::from("world");
+    let s6 = String::from("world333");
     let s3 = s1 + " " + &s2 + "!";
     let s4 = s3.clone();
-    println!("{}",s4);
+    // println!("{}",s4);
+    let s5 =format!("{}-{}-{}",s6,s2,&s4).len();
+    println!("{}",s5);
+
+}
+
+ */
+//关于chars、bytes
+fn main() {
+    let s5 = String::from("jintian shi haorizi.");
+    for i in s5.chars(){
+        println!("{}", i);
+    }
+
+    for i in s5.bytes(){
+        println!("{}",i);
+    }
+
+    let s6 = &s5[0..5];
+    println!("{}",s6)
+}
+
+//关于hashmap的用法，insert的用法
+// use std::collections::HashMap;
+fn main() {
+    let mut scores = HashMap::new();
+    scores.insert(String::from("Blue"), 10);
+    scores.insert(String::from("Yellow"), 50);
+    scores.insert(String::from("Green"), 30);
+    scores.insert(String::from("Purple"), 50);
+    scores.insert(String::from("Orange"), 50);
+    scores.insert("Jintian".to_string(),180989);
+    for(m,n) in scores {
+        println!("{}:{}",m,n);
+    }
+}
+
+ */
+
+//hashmap的用法，以及zip把两个vec拉链成一个hashmap的用法
+fn main() {
+    let v1 = vec![1, 2, 3];
+    let v2 = vec!['z', 'c', 'd'];
+
+    let scores: HashMap<char, i32> =
+        v2.iter().cloned().zip(v1.iter().cloned()).collect();
+    println!("{:?}", scores);
 }
