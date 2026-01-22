@@ -2189,6 +2189,86 @@ fn main() {
 }
 
 
+//hashmap的用法,get()返回一个被Option包裹的值;
+//x.entry().or_insert()
+//e
+//e.or_insert()
+fn main(){
+    let mut scores = HashMap::new();
+    scores.insert(String::from("Blue"), 10);
+    scores.insert(String::from("Yellow"), 50);
+    scores.insert(String::from("David"), 30);
+    // let team_name = "David".to_string();
+    // let score = scores.get(&team_name);
+    // if let Some(i) = score { println!("score: {}",i)}
+    scores.entry(String::from("Blue")).or_insert(100);
+    let e = scores.entry(String::from("Yellow2"));
+    e.or_insert(23);
+
+    for (m,n)in scores.iter(){
+        println!("{} : {}", m, n);
+    }
+}
+
+//建立一个新的hashmap，把一场串string中的单词按照空格split，存入这个hashmap并计算次数
+fn main() {
+    let text = "jin tian shi ge hao ri zi hao hao hao.";
+    let mut map = HashMap::new();
+    for i in text.split_whitespace() {
+        let count = map.entry(i).or_insert(0);
+        *count += 1;
+    }
+    println!("{:#?}", map);
+}
+
+
+//计数器
+fn main() {
+    let string_01 = String::from("jin tian zhen de shi yi ge hen hao de ri zi bing qie tian qi ye zhen de hen hao!");
+    let mut map_01 = HashMap::new();
+    map_01.insert("zhen",12);
+    for i in string_01.split_whitespace(){
+        let mut count = map_01.entry(i).or_insert(0);
+        *count += 1;
+    }
+    println!("{:?}",map_01);
+    let v = map_01["zhen"];
+    println!("{}",v);
+}
+
+#[cfg(target_os = "macos" )]
+fn conditional_function(){
+    println!("conditional_function is ok");
+}
+fn main() {
+   let mut  v:f64= (150.0/3000000.0);
+    println!("{}",v);
+}
+
  */
 
-//hashmap的用法
+struct Years(i64);
+struct Days(i64);
+
+impl Years{
+    pub fn to_days(&self)->Days{
+        Days(self.0 * 365)
+    }
+}
+
+impl Days{
+    pub fn to_years(&self)->Years{
+        Years(self.0 / 365)
+    }
+}
+
+fn is_adult_or_not(age:&Years)->bool{
+    age.0>=18
+}
+fn main() {
+    let age = Years(18);
+    let age_days = age.to_days();
+    println!("{}",age_days.0);
+    println!("{}",is_adult_or_not(&age));
+
+}
