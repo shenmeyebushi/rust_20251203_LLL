@@ -5,7 +5,8 @@ use qrcode::QrCode;
 use image::Luma;
 use std::collections::HashMap;
 use std::any::type_name;
-use std::arch::aarch64::int32x2_t;
+use std::arch::aarch64::{int32x2_t, vmaxv_s32};
+use std::os::unix::raw::off_t;
 /*
 fn main() {
     println!("Today is the first day of my learning rust language.");
@@ -2245,8 +2246,7 @@ fn main() {
     println!("{}",v);
 }
 
- */
-
+//元组结构体
 struct Years(i64);
 struct Days(i64);
 
@@ -2270,5 +2270,118 @@ fn main() {
     let age_days = age.to_days();
     println!("{}",age_days.0);
     println!("{}",is_adult_or_not(&age));
+}
 
+struct Container(i32, i32);
+trait Contains<A, B> {
+    fn contains(&self, _: &A, _: &B) -> bool;
+    fn first(&self) -> i32;
+    fn last(&self) -> i32;
+}
+
+impl Contains<i32, i32> for Container {
+    fn contains(&self, number_1: &i32, number_2: &i32) -> bool {
+        (&self.0 == number_1) && (&self.1 == number_2)
+    }
+    fn first(&self) -> i32 { self.0 }
+    fn last(&self) -> i32 { self.1 }
+}
+
+fn difference<A, B, C>(container: &C) -> i32 where
+    C: Contains<A, B> {
+    container.last() - container.first()
+}
+
+fn main() {
+    let number_1 = 3;
+    let number_2 = 10;
+
+    let container = Container(number_1, number_2);
+
+    println!("容器是否包含 {} 和 {}：{}",
+             &number_1, &number_2,
+             container.contains(&number_1, &number_2));
+    println!("第一个数字：{}", container.first());
+    println!("最后一个数字：{}", container.last());
+
+    println!("差值为：{}", difference(&container));
+}
+
+fn main() {
+    let a = 4;
+    let b = a;
+    println!("{}",a);
+    println!("{}",b);
+    let v = a;
+    println!("{}",v);
+    println!("{}-{}-{}",v,b,a);
+}
+
+fn drop_01 (x:Box<i32>){
+    println!("什么也没有发生，x就被销毁了！");
+}
+
+fn main() {
+    let y = Box::new(12);
+    drop_01(y);
+    println!("{}",y);
+}
+
+
+static NUM: i32 = 18;
+fn cfn<'a>(_:&'a i32) -> &'a i32 {
+    &NUM
+}
+
+fn main() {
+    {
+        let static_string = "I am existed in the Read_Only Memery.";
+        println!("Static string: {}", static_string);
+    }
+
+    {
+        let x = 9;
+        let y = cfn(&x);
+        println!("y: {}", y);
+    }
+
+    println!("NUM is still alive: {}", NUM);
+}
+
+
+ */
+
+
+struct Sheep{}
+struct Cow{}
+
+trait Animal{
+    fn noise(&self)->&'static str;
+    fn eat(&self)->&'static str;
+}
+
+impl Animal for Sheep{
+    fn noise(&self)->&'static str{
+        "咩咩咩～"
+    }
+    fn eat(&self)->&'static str{
+        "绝对无毒的草草草～"
+    }
+}
+
+impl Animal for Cow{
+    fn noise(&self)->&'static str{
+        "哞哞哞～"
+    }
+    fn eat(&self)->&'static str{
+        "玉米秸、麦秸、青贮饲料～"
+    }
+}
+fn main() {
+    let xiaobai = Sheep{};
+    let xiaohei = Cow{};
+    let dongxi = xiaobai.eat();
+    let dongxi2 = xiaohei.noise();
+    println!("{}", dongxi);
+    println!("{}", dongxi2);
 }
