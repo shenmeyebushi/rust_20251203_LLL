@@ -2346,9 +2346,8 @@ fn main() {
     }
 
     println!("NUM is still alive: {}", NUM);
+
 }
-
-
  */
 
 
@@ -2377,11 +2376,25 @@ impl Animal for Cow{
         "玉米秸、麦秸、青贮饲料～"
     }
 }
-fn main() {
-    let xiaobai = Sheep{};
-    let xiaohei = Cow{};
-    let dongxi = xiaobai.eat();
-    let dongxi2 = xiaohei.noise();
-    println!("{}", dongxi);
-    println!("{}", dongxi2);
+
+
+fn random_animal(random_number:i32)->Box<dyn Animal>{
+    if random_number < 50{
+        Box::new(Sheep{})
+    }else {
+        Box::new(Cow{})
+    }
 }
+fn main() {
+    // let xiaobai = Sheep{};
+    // let xiaohei = Cow{};
+    // let dongxi = xiaobai.eat();
+    // let dongxi2 = xiaohei.noise();
+    // println!("{}", dongxi);
+    // println!("{}", dongxi2);
+    let random_number:i32 = rand::thread_rng().gen_range(1..101);
+    let animal_random = random_animal(random_number);
+    println!("{}", animal_random.noise());
+
+}
+
