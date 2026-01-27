@@ -2379,7 +2379,7 @@ impl Animal for Cow{
 
 
 fn random_animal(random_number:i32)->Box<dyn Animal>{
-    if random_number < 50{
+    if random_number > 50{
         Box::new(Sheep{})
     }else {
         Box::new(Cow{})
@@ -2392,9 +2392,15 @@ fn main() {
     // let dongxi2 = xiaohei.noise();
     // println!("{}", dongxi);
     // println!("{}", dongxi2);
-    let random_number:i32 = rand::thread_rng().gen_range(1..101);
+    let random_number:i32 = rand::thread_rng().gen_range(1..100);
     let animal_random = random_animal(random_number);
-    println!("{}", animal_random.noise());
-
+    if animal_random.noise()=="哞哞哞～"{
+        println!("{}", animal_random.noise());
+        println!("{}", animal_random.eat());
+    }else {
+        panic!("这个牛如果不发出牛的声音，那它一定不是牛！")
+    }
+    println!("length of animal'name: {}", animal_random.eat().len());
 }
+
 
