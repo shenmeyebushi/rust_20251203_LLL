@@ -2348,9 +2348,9 @@ fn main() {
     println!("NUM is still alive: {}", NUM);
 
 }
- */
 
 
+//'static生命周期；Box<dyn Trait>的用法；
 struct Sheep{}
 struct Cow{}
 
@@ -2402,5 +2402,35 @@ fn main() {
     }
     println!("length of animal'name: {}", animal_random.eat().len());
 }
+
+ */
+
+
+//abort，unwind的用法
+
+
+
+#[cfg(panic = "~~~~~~unwind~~~~~~")]
+fn kuai_tu_chu_lai(){
+    println!("你的胃酸过多，快吐出来吧～");
+}
+
+#[cfg(not(panic = "~~~~~~unwind~~~~~~"))]
+fn kuai_tu_chu_lai() {
+    println!("这个party不是你应该来的地方");
+}
+
+fn drink(beverage:&str){
+    if beverage == "柠檬水" {
+        kuai_tu_chu_lai();
+    }else {
+        println!("这就是你想喝的吧，这就是{}",beverage);
+    }
+}
+fn main() {
+    // drink("水");
+    drink("柠檬水");
+}
+
 
 
