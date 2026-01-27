@@ -2378,7 +2378,7 @@ impl Animal for Cow{
 }
 
 
-fn random_animal(random_number:i32)->Box<dyn Animal>{
+fn random_animal(random_number:i32)->Box<dyn Animal>{//Box智能指针可以实现自动解引用；
     if random_number > 50{
         Box::new(Sheep{})
     }else {
@@ -2393,9 +2393,9 @@ fn main() {
     // println!("{}", dongxi);
     // println!("{}", dongxi2);
     let random_number:i32 = rand::thread_rng().gen_range(1..100);
-    let animal_random = random_animal(random_number);
+    let animal_random = random_animal(random_number);//所以在这里返回的是一个Box，它可以自动解引用；
     if animal_random.noise()=="哞哞哞～"{
-        println!("{}", animal_random.noise());
+        println!("{}", animal_random.noise());//所以这里可以实现方法；
         println!("{}", animal_random.eat());
     }else {
         panic!("这个牛如果不发出牛的声音，那它一定不是牛！")
@@ -2407,8 +2407,6 @@ fn main() {
 
 
 //abort，unwind的用法
-
-
 
 #[cfg(panic = "~~~~~~unwind~~~~~~")]
 fn kuai_tu_chu_lai(){
