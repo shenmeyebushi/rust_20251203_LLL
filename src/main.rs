@@ -1,12 +1,12 @@
-use std::io;
-use rand::Rng;
-use std::cmp::Ordering;
-use qrcode::QrCode;
-use image::Luma;
-use std::collections::HashMap;
-use std::any::type_name;
-use std::arch::aarch64::{int32x2_t, vmaxv_s32};
-use std::os::unix::raw::off_t;
+// use std::io;
+// use rand::Rng;
+// use std::cmp::Ordering;
+// use qrcode::QrCode;
+// use image::Luma;
+// use std::collections::HashMap;
+// use std::any::type_name;
+// use std::arch::aarch64::{int32x2_t, vmaxv_s32};
+// use std::os::unix::raw::off_t;
 /*
 fn main() {
     println!("Today is the first day of my learning rust language.");
@@ -2403,13 +2403,10 @@ fn main() {
     println!("length of animal'name: {}", animal_random.eat().len());
 }
 
- */
-
 
 //abort，unwind的用法
-
 #[cfg(panic = "~~~~~~unwind~~~~~~")]
-fn kuai_tu_chu_lai(){
+fn kuai_tu_chu_lai() {
     println!("你的胃酸过多，快吐出来吧～");
 }
 
@@ -2418,7 +2415,7 @@ fn kuai_tu_chu_lai() {
     println!("这个party不是你应该来的地方");
 }
 
-fn drink(beverage:&str){
+fn 碰到了强买强卖(beverage:&str){//可以用汉字定义fn
     if beverage == "柠檬水" {
         kuai_tu_chu_lai();
     }else {
@@ -2426,9 +2423,18 @@ fn drink(beverage:&str){
     }
 }
 fn main() {
-    // drink("水");
-    drink("柠檬水");
+    碰到了强买强卖("水");
+    碰到了强买强卖("柠檬水");
 }
+ */
 
+fn next_birthday(current_age:Option<u8>)-> Option<String> {
+    let next_age = current_age? + 1;
+    Some(format!("明年的生日，我将 {} 岁。",next_age))
+}
+fn main() {
+    let current_age = Some(12);
+    println!("{}",next_birthday(current_age).expect("在这里出错是不能接受的。"));
+}
 
 
