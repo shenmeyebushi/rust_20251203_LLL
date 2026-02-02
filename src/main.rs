@@ -1,12 +1,12 @@
-// use std::io;
-// use rand::Rng;
-// use std::cmp::Ordering;
-// use qrcode::QrCode;
-// use image::Luma;
-// use std::collections::HashMap;
-// use std::any::type_name;
-// use std::arch::aarch64::{int32x2_t, vmaxv_s32};
-// use std::os::unix::raw::off_t;
+use std::io;
+use rand::Rng;
+use std::cmp::Ordering;
+use qrcode::QrCode;
+use image::Luma;
+use std::collections::HashMap;
+use std::any::type_name;
+use std::arch::aarch64::{int32x2_t, vmaxv_s32};
+use std::os::unix::raw::off_t;
 /*
 fn main() {
     println!("Today is the first day of my learning rust language.");
@@ -2426,15 +2426,22 @@ fn main() {
     碰到了强买强卖("水");
     碰到了强买强卖("柠檬水");
 }
- */
 
+//这里是Option<>的用法；
 fn next_birthday(current_age:Option<u8>)-> Option<String> {
     let next_age = current_age? + 1;
     Some(format!("明年的生日，我将 {} 岁。",next_age))
 }
 fn main() {
-    let current_age = Some(12);
+    let current_age = Some(12);//用Some去包裹一个u8，就是一个Option<u8>数据类型
     println!("{}",next_birthday(current_age).expect("在这里出错是不能接受的。"));
+    //把Some包裹的u8，传入next_birthday函数，后者会打开这个Some包裹，取出其中的u8类型的值，加上1，并绑定到新变量名next_age
+    //format形成一段文本，传入Some打包起来，作为函数返回值返回
+    //main函数的意思是——
+    //定义了一个参数，这个参数是用一个包裹12的Some
+    //把参数传入函数运行，如果出错就说“在这里出错是不能接受的。”
 }
+
+
 
 
