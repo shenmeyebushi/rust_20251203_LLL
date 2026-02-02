@@ -2426,6 +2426,7 @@ fn main() {
     碰到了强买强卖("水");
     碰到了强买强卖("柠檬水");
 }
+  
 
 //这里是Option<>的用法；
 fn next_birthday(current_age:Option<u8>)-> Option<String> {
@@ -2441,6 +2442,174 @@ fn main() {
     //定义了一个参数，这个参数是用一个包裹12的Some
     //把参数传入函数运行，如果出错就说“在这里出错是不能接受的。”
 }
+*/  
+
+/*
+fn main() {
+
+   let mut str_01 = "hello";
+   let arr_01:[usize;2];
+   println!("你已经定义好了两个变量！")
+
+   let pointer_01 = &mut str_01;
+   let mut vec_01 = Vec::new();
+   vec_01.push(12);
+   vec_01.push(23);
+   vec_01.push(45);
+
+   let mut largest_num = &vec_01[0];
+
+   for i in &vec_01 {
+       if largest_num < i {
+           largest_num = i;
+       }
+   }
+   println!("{}",largest_num);
+
+   let num_list = [25,54,89,256,258,1,417474,25];
+   println!("{}",largest_i32(&num_list));
+   let char_list = ['a','b','c','d','e','f','y'];
+   println!("{}",largest_char(&char_list));
+
+}
+
+fn largest_i32(list:&[i32]) ->&i32{
+   let mut largest = &list[0];
+   for i in list {
+       if largest < i {
+           largest = i;
+       }
+   }
+   return largest;
+}
+fn largest_char(list:&[char])->&char{
+   let mut largest = &list[0];
+   for i in list {
+       if largest < i {
+           largest = i;
+       }
+   }
+   return largest;
+}
+
+fn largest<T>(list:&[T])-> &T{
+    let mut largest = &list[0];
+    for i in list {
+        if largest < i {
+            largest = i;
+        }
+    }
+    largest
+}
+
+fn main(){
+    let num_list = [25,54,89,256,258,1,417474,25];
+    println!("{}",largest(&num_list));
+    let char_list = ['a','b','c','d','e','f','y'];
+    println!("{}",largest(&char_list));
+}
+
+
+#[derive(Debug)]
+struct Point<T>{
+    x:T,
+    y:T,
+}
+
+trait PointReturn<T> {
+    fn return_x (&self) -> &T;
+    fn return_y (&self) -> &T;
+}
+
+impl<T> PointReturn<T> for Point<T> {
+    fn return_x(&self) -> &T {
+        return &self.x
+    }
+    fn return_y (&self) -> &T {
+        return &self.y
+    }
+}
+
+impl Point<String> {
+    fn return_conca_xy (&self) -> String {
+        return format!("{} & {}", self.x, self.y);
+    }
+}
+
+fn main(){
+    let p = Point{x:10,y:20};
+    println!("{}",p.return_x());
+    println!("{}",p.return_y());
+
+    let q = Point{x:"李白乘舟将欲行".to_string(),y:"遥看瀑布挂前川".to_string()};
+    println!("{}",q.return_x());
+    println!("{}",q.return_y());
+    println!("{}",q.return_conca_xy());
+}
+
+*/
+
+
+
+ pub trait Summary{
+    fn summarize(&self) -> String;
+}
+
+enum Media{
+    Article,
+    Post,
+    Weibo,
+}
+pub struct Post{
+    content: String,
+    author: String,
+    title: String,
+}
+
+pub struct Weibo{
+    title: String,
+    content: String,
+    username: String,
+    source: i32,
+}
+
+impl Summary for Post {
+    fn summarize(&self) -> String {
+        return format!("{} by {}",  self.title,self.author);
+    }
+}
+impl Summary for Weibo {
+    fn summarize(&self) -> String {
+        return format!("{} by {}", self.title, self.source);
+    }
+}
+
+fn main() {
+    fn returns_summarizable(switch: bool) -> impl Summary {
+        if switch {
+            Post {
+                title: "Here's a beautiful".to_string(),
+                author: "WANG_Xiao_li".to_string(),
+                content: "This breakfast for programming languages!".to_string(),
+            }
+        } else {
+            Post {
+                title: "404".to_string(),
+                author: "404".to_string(),
+                content: "404".to_string(),
+                // Weibo{
+                //     title: String::from("Liyuchuan ROCK!"),
+                //     content: String::from("Liyuchuan ROCKROCKROCKROCKROCKROCKROCKROCKROCKROCKROCKROCKROCKROCKROCK!"),
+                //     username: String::from("Zhulinjunlintianxia!"),
+                //     source: 128,
+            }
+        }
+    }
+
+    let post = returns_summarizable(false);
+    println!("{}", post.summarize());
+}
+
 
 
 
