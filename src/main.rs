@@ -2547,10 +2547,9 @@ fn main(){
     println!("{}",q.return_conca_xy());
 }
 
-*/
 
 
-
+//定义trait、enum几个类型，然后定义每个类型struct，然后给每个struct安装响应的trait
  pub trait Summary{
     fn summarize(&self) -> String;
 }
@@ -2609,6 +2608,8 @@ fn main() {
     let post = returns_summarizable(false);
     println!("{}", post.summarize());
 }
+
+ */
 
 
 
