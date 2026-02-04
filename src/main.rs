@@ -2609,9 +2609,63 @@ fn main() {
     println!("{}", post.summarize());
 }
 
+//
+#[derive(Debug,Clone,Copy)]
+struct PhoneNumber{
+    number: u32,
+    area_code: Option<u8>,
+}
+
+#[derive(Debug)]
+struct Job{
+    phone:Option<PhoneNumber>,
+}
+
+struct Person{
+    job: Option<Job>
+}
+
+impl Person{
+    fn work_phone_area_code(&self) -> Option<u8> {
+        self.job?.phone?.area_code
+    }
+}
+
+fn main() {
+    let xiaowang = Person{
+        job:Some(Job{
+                    phone:Some(PhoneNumber{
+                        number:83792598,
+                        area_code:Some(25),
+                    }),
+        })
+    };
+    assert!(xiaowang.work_phone_area_code(),Some(25));
+}
+//在rust中，一般是用enum定义了一个类型的集合，其中包含了很多个类型，例如Aa，Bb，Cc，Dd；
+// 然后再用struct去精确定义后面这些类型Aa，Bb，Cc，Dd，在定义这些类型Aa，Bb，Cc，Dd的时候，
+// 里面的数据可以用Option<>给包裹起来，例如包裹另一个类型；
+// 然后就可以定义trait，里面有方法的签名，然后就可以impl这些trait给那些类型Aa，Bb，Cc，Dd；
+// 也可以直接impl类型Aa，Bb，Cc，Dd，就是关联函数。
+// 最后在main中调用它们。
+
+
  */
 
+//get_or_insert(),
+#[derive(Debug)]
+enum Fruit{
+    Apple,
+    Banana,
+    Orange,
+}
 
-
-
+fn main() {
+    let mut my_fruit: Option<Fruit> = None;
+    let a = Fruit::Apple;
+    let b = Fruit::Banana;
+    let c = Fruit::Orange;
+    let my_first_fruit = my_fruit.get_or_insert(a);
+    println!("我的第一个水果是{:?}",my_first_fruit);
+}
 
