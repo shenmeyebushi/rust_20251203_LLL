@@ -2717,7 +2717,8 @@ fn main() {
     // 凡是box，都是8个字节；
 }
 
- */
+
+ //vec
 fn main() {
     let collected_iterator: Vec<i32> = (0..100).collect();
     println!("把0-9收集到collected_iterator——{:?}", collected_iterator);
@@ -2738,5 +2739,39 @@ fn main() {
         println!("{}",i);
     }
     println!("——————————xs的内容打印完成—————————");
+    for (i,o) in xs.iter().enumerate(){
+        println!("({},{})",i,o);
+    }
+}
+
+ */
+
+fn call(n:&str)->&str{
+    match n {
+        "798"=>"很抱歉，你拨打的号码无法接通。",
+        "025-83792598"=>"您好，这里是106宿舍,您还记得这个号码。",
+        _ =>"请问您是哪位？",
+    }
+}
+
+fn main() {
+    let mut contacts = HashMap::new();
+    contacts.insert("106","025-83792598");
+    contacts.insert("105","798");
+    contacts.insert("104","025-83792599");
+
+    match contacts.get(&"106") {
+        Some(&i)=>println!("您所拨打的号码是{};\n您的回答是{}", i,call(i)),
+        _ => println!("没有这个宿舍的号码！"),
+    }
+
+    contacts.insert("103","025-83792103");
+    contacts.insert("102","025-83792102");
+    contacts.insert("101","025-83792101");
+    contacts.insert("104","025-83792104");
+    for (k,v) in &contacts {
+        println!("{}:{}",k,v);
+    }
+
 
 }
