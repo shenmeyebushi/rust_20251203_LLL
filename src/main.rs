@@ -1,11 +1,11 @@
-use std::io;
+use std::{io, mem};
 use rand::Rng;
 use std::cmp::Ordering;
 use qrcode::QrCode;
 use image::Luma;
 use std::collections::HashMap;
 use std::any::type_name;
-use std::arch::aarch64::{int32x2_t, vmaxv_s32};
+use std::arch::aarch64::{float64x1_t, int32x2_t, vmaxv_s32};
 use std::os::unix::raw::off_t;
 /*
 fn main() {
@@ -2650,8 +2650,6 @@ fn main() {
 // 最后在main中调用它们。
 
 
- */
-
 //get_or_insert(),
 #[derive(Debug)]
 enum Fruit{
@@ -2668,4 +2666,56 @@ fn main() {
     let my_first_fruit = my_fruit.get_or_insert(a);
     println!("我的第一个水果是{:?}",my_first_fruit);
 }
+
+ */
+
+//
+#[allow(dead_code)]
+#[derive(Debug,Clone,Copy)]
+struct Point{
+    x:f64,
+    y:f64,
+}
+
+#[allow(dead_code)]
+struct Rectangle{
+    p1:Point,
+    p2:Point,
+}
+
+fn origin_point()->Point{
+    Point{x:0.0,y:0.0}//没有"；"符号，是return了
+}
+
+fn boxed_origin_point()->Box<Point>{
+    Box::new(Point{x:0.0,y:0.0})//没有"；"符号，是return了
+}
+
+fn main() {
+    let point_01:Point = origin_point();//在stack上
+    let rect_01:Rectangle = Rectangle{
+        p1:origin_point(),
+        p2:Point{x:3.0,y:-4.5},
+    };//创建了一个新的矩形，在stack上
+
+    let boxed_rect_01:Box<Rectangle> = Box::new(Rectangle{
+        p1:origin_point(),
+        p2:Point{x:3.0,y:4.5},
+    });//创建了一个新的矩形，这个矩形和刚才上面那个一样；
+    // 但是它的数据在heap上，并用一个智能指针，指向它，拥有它的所有权，Box就是装箱的意思；
+
+    let boxed_point = Box::new(origin_point());
+    //用函数创建了一个原点，并Box它，绑定到一个新的变量boxed_point上；
+
+    let box_in_a_box = Box::new(boxed_origin_point());
+    //把box装到box里------也就是又打了一次包；
+
+    println!("Point在stack上占用个{}bytes",mem::size_of_val(&point_01));
+    println!("Rectangle在stack上占用个{}bytes",mem::size_of_val(&rect_01));
+    println!("装box的Point在stack上占用个{}bytes",mem::size_of_val(&boxed_point));
+    println!("装box的Rectangle在stack上占用个{}bytes",mem::size_of_val(&boxed_rect_01));
+    println!("装box的装box的Rectangle在stack上占用个{}bytes",mem::size_of_val(&box_in_a_box));
+
+}
+
 
