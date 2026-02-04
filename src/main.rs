@@ -2745,8 +2745,7 @@ fn main() {
     }
 }
 
- */
-
+//这里是HashMap<&str,&str>
 fn call(n:&str)->&str{
     match n {
         "798"=>"很抱歉，你拨打的号码无法接通。",
@@ -2776,5 +2775,69 @@ fn main() {
 
     for(m,n)in contacts.iter(){
         println!("正在呼叫{}宿舍,该宿舍的号码是{}",m,n);
+<<<<<<< HEAD
+    }//解释，为什么这里的m和n的数据类型是&&str类型？————————————
+    //contacts 的类型是 HashMap<&str, &str>，它存储的是 字符串切片引用（&str）；
+}
+ */
+#[derive(Debug,PartialEq,Eq,Hash)]
+struct Account<'a>{
+    username:&'a str,
+    password:&'a str,
+}
+
+struct AccountInfo<'a>{
+    name:&'a str,
+    email:&'a str,
+}
+type Accounts<'a> = HashMap<Account<'a>, AccountInfo<'a>>;
+
+fn try_logon<'a> (x:&Accounts<'a>,y:&'a str,z:&'a str){
+    println!("用户名：【{}】\n密码：【{}】",y,z);
+    println!("______正在尝试登陆______");
+    let logon = Account{
+        username:y,
+        password:z,
+    };
+
+    match x.get(&logon) {//get会返回一个Some包裹的引用
+        Some(account_info)=>{
+            println!("__________登陆中_________\
+            \n
+        该用户的名字是{},email是{}",account_info.name,account_info.email);
+            if account_info.name == y{
+                println!("__________用户{}登陆成功！_________\n",account_info.name);
+            }else {
+                println!("该用户不存在！");
+            }
+        },
+
+        _=>println!("Sorry, not exit!")
+    }
+}
+
+fn main() {
+    let mut accounts_01:Accounts = HashMap::new();
+    let account_00 =Account{username:"admin00",password:"00123"};
+    let account_01 =Account{username:"admin01",password:"01123"};
+    let account_02 =Account{username:"admin02",password:"02123"};
+    let account_03 =Account{username:"admin03",password:"03123"};
+    let account_04 =Account{username:"admin05",password:"04123"};
+    let accountinfo_00 = AccountInfo{name:"admin00",email:"00123@qq.com"};
+    let accountinfo_01 = AccountInfo{name:"admin01",email:"01123@qq.com"};
+    let accountinfo_02 = AccountInfo{name:"admin02",email:"02123@qq.com"};
+    let accountinfo_03 = AccountInfo{name:"admin03",email:"03123@qq.com"};
+    let accountinfo_04 = AccountInfo{name:"admin04",email:"04123@qq.com"};
+
+    accounts_01.insert(account_00, accountinfo_00);
+    accounts_01.insert(account_01, accountinfo_01);
+    accounts_01.insert(account_02, accountinfo_02);
+    accounts_01.insert(account_03, accountinfo_03);
+    accounts_01.insert(account_04, accountinfo_04);
+    for (k,v) in &accounts_01 {
+        println!("{},{}",k.username,v.name);
+    }
+
+    try_logon(&accounts_01,"admin02","02123");
     }
 }
