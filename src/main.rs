@@ -2667,7 +2667,6 @@ fn main() {
     println!("我的第一个水果是{:?}",my_first_fruit);
 }
 
- */
 
 //
 #[allow(dead_code)]
@@ -2715,7 +2714,29 @@ fn main() {
     println!("装box的Point在stack上占用个{}bytes",mem::size_of_val(&boxed_point));
     println!("装box的Rectangle在stack上占用个{}bytes",mem::size_of_val(&boxed_rect_01));
     println!("装box的装box的Rectangle在stack上占用个{}bytes",mem::size_of_val(&box_in_a_box));
-
+    // 凡是box，都是8个字节；
 }
 
+ */
+fn main() {
+    let collected_iterator: Vec<i32> = (0..100).collect();
+    println!("把0-9收集到collected_iterator——{:?}", collected_iterator);
 
+    let mut xs = vec![599486i32,522034,324076];
+    println!("初始向量xs是——{:?}",xs);
+
+    println!("——————下面把4push进xs，4会添加在xs的尾部——————");
+    xs.push(400987);
+    println!("push之后的向量xs是——{:?}",xs);
+    println!("push之后的向量xs的长度是——{}",xs.len());
+    println!("push之后的向量xs的第一个元素是——{}",xs[0]);
+    println!("push之后的向量xs的第二个元素是——{}",xs[1]);
+    println!("push之后的向量xs的第三个元素是——{}",xs[2]);
+    println!("push之后的向量xs的第四个元素是——{}",xs[3]);
+    println!("——————————————xs的内容————————————");
+    for i in &xs {
+        println!("{}",i);
+    }
+    println!("——————————xs的内容打印完成—————————");
+
+}
