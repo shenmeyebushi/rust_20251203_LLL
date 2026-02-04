@@ -2838,6 +2838,4 @@ fn main() {
     }
 
     try_logon(&accounts_01,"admin02","02123");
-
-
 }
