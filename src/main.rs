@@ -1,3 +1,4 @@
+use std::time::Duration;
 use std::{io, mem};
 use rand::Rng;
 use std::cmp::Ordering;
@@ -2858,18 +2859,18 @@ fn main() {
 
     thread::sleep(Duration::from_secs(1));
 }
- */
 
+ */
 
 //map-reduce
 use std::thread;
 fn main() {
-    let data_01 = "234587895 \
-    234758807 \
-    29847456 \
-    29071919 \
-    10970412 \
-    18374975";
+    let data_01 = "2345878955 \
+    23475880723444 \
+    2984745623456 \
+    2907191988899999 \
+    10970412556 \
+    18374975566";
 
     let mut vec_00_children = vec![];
     // let mut vec_01_children = vec![];
@@ -2889,15 +2890,15 @@ fn main() {
     // println!("{:?}",hash_map_new);
         vec_00_children.push(thread::spawn(move ||->u32{
                 let result_x = o.chars()
-                                        .map(|c| c.to_digit(10).expect("should be no."))
-                                        .sum();
+                               .map(|c| c.to_digit(10).expect("should be no."))
+                               .sum();
                 println!("已经处理到{},目前的结果是{}",i,result_x);
                 result_x
         }));
     };
 
-    let final_result = vec_00_children
-                                                                .into_iter()
-                                                                .map(|c| c.join().expect("这里我改了unwrap()"));
-    println!("{:?}", final_result);
+    thread::sleep(Duration::from_secs(2));
+    let final_result:u32 = vec_00_children.into_iter().map(|c| c.join().expect("这里我改了unwrap()"))
+                                          .sum();
+    println!("现在打印到这里{:?}", final_result);
 }
