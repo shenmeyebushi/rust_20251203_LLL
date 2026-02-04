@@ -2871,12 +2871,19 @@ fn main() {
     183784909871689834089708975";
 
     let mut vec_00_children = vec![];
-
+    let mut vec_01_children = vec![];
     let chunked_data = data_01.split_whitespace();
-
     for (i,o) in chunked_data.enumerate() {
         println!("{},{}",i,o);
-        vec_00_children.push(o.to_string());
+        vec_00_children.push(i.to_string());
+        vec_01_children.push(o.to_string());
     }
     println!("{:?}",vec_00_children);
+    println!("{:?}",vec_01_children);
+
+    let hash_map_new : HashMap<_,_> = vec_00_children
+        .into_iter()
+        .zip(vec_01_children.into_iter())
+        .collect();
+    println!("{:?}",hash_map_new);
 }
