@@ -2779,7 +2779,10 @@ fn main() {
     }//解释，为什么这里的m和n的数据类型是&&str类型？————————————
     //contacts 的类型是 HashMap<&str, &str>，它存储的是 字符串切片引用（&str）；
 }
- */
+
+
+
+ //登陆系统
 #[derive(Debug,PartialEq,Eq,Hash)]
 struct Account<'a>{
     username:&'a str,
@@ -2802,9 +2805,7 @@ fn try_logon<'a> (x:&Accounts<'a>,y:&'a str,z:&'a str){
 
     match x.get(&logon) {//get会返回一个Some包裹的引用
         Some(account_info)=>{
-            println!("__________登陆中_________\
-            \n
-        该用户的名字是{},email是{}",account_info.name,account_info.email);
+            println!("__________登陆中_________\n该用户的名字是{},email是{}",account_info.name,account_info.email);
             if account_info.name == y{
                 println!("__________用户{}登陆成功！_________\n",account_info.name);
             }else {
@@ -2839,5 +2840,43 @@ fn main() {
     }
 
     try_logon(&accounts_01,"admin02","02123");
+}
+
+//关于thread
+use std::time::{Duration};
+use std::sync::Arc;
+use std::thread;
+
+fn main() {
+    let apple = Arc::new("一个苹果");
+    for _ in 0..3{
+        let apple00 = Arc::clone(&apple);
+        thread::spawn(move || {
+            println!("{:?}",apple00);
+        });
     }
+
+    thread::sleep(Duration::from_secs(1));
+}
+ */
+
+
+//map-reduce
+fn main() {
+    let data_01 = "2348589234785278634675276837895 \
+    234758287467809237840959807 \
+    298475878056278904589723456 \
+    290758902079807896472711919 \
+    109787823904780925891700412 \
+    183784909871689834089708975";
+
+    let mut vec_00_children = vec![];
+
+    let chunked_data = data_01.split_whitespace();
+
+    for (i,o) in chunked_data.enumerate() {
+        println!("{},{}",i,o);
+        vec_00_children.push(o.to_string());
+    }
+    println!("{:?}",vec_00_children);
 }
