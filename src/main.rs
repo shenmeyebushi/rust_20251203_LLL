@@ -2862,28 +2862,42 @@ fn main() {
 
 
 //map-reduce
+use std::thread;
 fn main() {
-    let data_01 = "2348589234785278634675276837895 \
-    234758287467809237840959807 \
-    298475878056278904589723456 \
-    290758902079807896472711919 \
-    109787823904780925891700412 \
-    183784909871689834089708975";
+    let data_01 = "234587895 \
+    234758807 \
+    29847456 \
+    29071919 \
+    10970412 \
+    18374975";
 
     let mut vec_00_children = vec![];
-    let mut vec_01_children = vec![];
+    // let mut vec_01_children = vec![];
     let chunked_data = data_01.split_whitespace();
     for (i,o) in chunked_data.enumerate() {
         println!("{},{}",i,o);
-        vec_00_children.push(i.to_string());
-        vec_01_children.push(o.to_string());
-    }
-    println!("{:?}",vec_00_children);
-    println!("{:?}",vec_01_children);
+        // vec_00_children.push(i.to_string());
+        // vec_01_children.push(o.to_string());
 
-    let hash_map_new : HashMap<_,_> = vec_00_children
-        .into_iter()
-        .zip(vec_01_children.into_iter())
-        .collect();
-    println!("{:?}",hash_map_new);
+    // println!("{:?}",vec_00_children);
+    // println!("{:?}",vec_01_children);
+    //
+    // let hash_map_new : HashMap<_,_> = vec_00_children
+    //     .into_iter()
+    //     .zip(vec_01_children.into_iter())
+    //     .collect();
+    // println!("{:?}",hash_map_new);
+        vec_00_children.push(thread::spawn(move ||->u32{
+                let result_x = o.chars()
+                                        .map(|c| c.to_digit(10).expect("should be no."))
+                                        .sum();
+                println!("已经处理到{},目前的结果是{}",i,result_x);
+                result_x
+        }));
+    };
+
+    let final_result = vec_00_children
+                                                                .into_iter()
+                                                                .map(|c| c.join().expect("这里我改了unwrap()"));
+    println!("{:?}", final_result);
 }
