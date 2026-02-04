@@ -6,6 +6,7 @@ use image::Luma;
 use std::collections::HashMap;
 use std::any::type_name;
 use std::arch::aarch64::{float64x1_t, int32x2_t, vmaxv_s32};
+use std::arch::naked_asm;
 use std::os::unix::raw::off_t;
 /*
 fn main() {
@@ -2769,9 +2770,11 @@ fn main() {
     contacts.insert("102","025-83792102");
     contacts.insert("101","025-83792101");
     contacts.insert("104","025-83792104");
-    for (k,v) in &contacts {
-        println!("{}:{}",k,v);
+    // for (k,v) in &contacts {
+    //     println!("{}:{}",k,v);
+    // }
+
+    for(m,n)in contacts.iter(){
+        println!("正在呼叫{}宿舍,该宿舍的号码是{}",m,n);
     }
-
-
 }
