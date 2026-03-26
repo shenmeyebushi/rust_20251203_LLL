@@ -26,6 +26,8 @@ fn main() {
         .expect("you got wrong character");
     println!("what you input is \n{}{}{}", s,y,z);
 }
+
+ */
 fn main(){
     println!("Today is the first day of my learning rust language.This is a guessing game.");
     println!("please input a number:");
