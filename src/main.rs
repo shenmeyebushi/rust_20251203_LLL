@@ -6,9 +6,15 @@ use qrcode::QrCode;
 use image::Luma;
 use std::collections::HashMap;
 use std::any::type_name;
-use std::arch::aarch64::{float64x1_t, int32x2_t, vmaxv_s32};
 use std::arch::naked_asm;
-use std::os::unix::raw::off_t;
+
+// fn main() {
+//     println!("Hello, world!");
+// }
+
+
+
+//定义变量，并接受IO设备的Input
 /*
 fn main() {
     println!("Today is the first day of my learning rust language.");
@@ -26,8 +32,11 @@ fn main() {
         .expect("you got wrong character");
     println!("what you input is \n{}{}{}", s,y,z);
 }
-
  */
+
+//定义一个变n,其数据类型是i32；然后定义一个可变的变量m，接收输入且写入可变变量的引用，把可变的变量m进行trim，然后解析；
+// 如果成功就和n比较大小，然后输出结果；
+/*
 fn main(){
     println!("Today is the first day of my learning rust language.This is a guessing game.");
     println!("please input a number:");
@@ -55,20 +64,26 @@ fn main(){
         println!("you are wrong, the number is bigger.");
     }
 }
+ */
+
+//Readline方法
+/*
 fn main(){
     println!("Read_line 方法.");
-    let mut iput_01 = String::new();
+    let mut in_put_01 = String::new();
     io::stdin()
-        .read_line(&mut ipput_01)
+        .read_line(&mut in_put_01)
         .expect("you got wrong input");
     io::stdin()
-        .read_line(&mut ipput_01)
+        .read_line(&mut in_put_01)
         .expect("you got wrong input again");
 
-    println!("your input is {}",ipput_01)
+    println!("your input is “{}” ",in_put_01)
 }
+ */
 
-
+//一个猜数字的游戏
+/*
 fn main(){
     //这是个游戏
     println!("This is a game of guessing number.");
@@ -93,6 +108,10 @@ fn main(){
     }
     println!("the secret number is {}",secret_number);
 }
+ */
+
+//猜数字的游戏
+/*
 fn main(){
     println!("this is a game");
 
@@ -111,6 +130,7 @@ fn main(){
 
     println!("the number you guess is {}",guess_number);
 
+    //使用cmp函数
     match guess_number.cmp(&ra_number) {
         Ordering::Equal => println!("you are right"),
         Ordering::Less => println!("less"),
@@ -120,7 +140,10 @@ fn main(){
     //告诉猜测者答案
     println!("the secret number is {}",ra_number);
 }
+ */
 
+//第三次写猜数字的游戏
+/*
 fn main(){
     println!("Welcome to RustyBeer!");
     println!("this is a guessing game!");
@@ -150,8 +173,9 @@ fn main(){
 
     println!("the secret number is {}", sec_number);
 }
+ */
 
-元组的定义、寻找元组的第N个元素
+//元组的定义、寻找元组的第N个元素
 fn main(){
     let tum_try:(u32,f32,i64) =(12,87.02,95);
     let tum_01 =tum_try.1;
@@ -2904,9 +2928,11 @@ fn main() {
     println!("现在打印到这里{:?}", final_result);
 }
 
- */
+
 fn main() {
     let pair_01 = (1,true);
     let pair_02 = (1,false);
     println!("{:#?}", pair_01);
 }
+
+*/
