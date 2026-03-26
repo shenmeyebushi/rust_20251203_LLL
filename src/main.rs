@@ -2860,7 +2860,6 @@ fn main() {
     thread::sleep(Duration::from_secs(1));
 }
 
- */
 
 //map-reduce
 use std::thread;
@@ -2901,4 +2900,11 @@ fn main() {
     let final_result:u32 = vec_00_children.into_iter().map(|c| c.join().expect("这里我改了unwrap()"))
                                           .sum();
     println!("现在打印到这里{:?}", final_result);
+}
+
+ */
+fn main() {
+    let pair_01 = (1,true);
+    let pair_02 = (1,false);
+    println!("{:#?}", pair_01);
 }
