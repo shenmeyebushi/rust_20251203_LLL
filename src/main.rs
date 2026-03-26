@@ -27,7 +27,6 @@ fn main() {
     println!("what you input is \n{}{}{}", s,y,z);
 }
 
- */
 fn main(){
     println!("Today is the first day of my learning rust language.This is a guessing game.");
     println!("please input a number:");
@@ -55,20 +54,23 @@ fn main(){
         println!("you are wrong, the number is bigger.");
     }
 }
+ */
+
+
 fn main(){
     println!("Read_line 方法.");
-    let mut iput_01 = String::new();
+    let mut in_put_01 = String::new();
     io::stdin()
-        .read_line(&mut ipput_01)
+        .read_line(&mut in_put_01)
         .expect("you got wrong input");
     io::stdin()
-        .read_line(&mut ipput_01)
+        .read_line(&mut in_put_01)
         .expect("you got wrong input again");
 
-    println!("your input is {}",ipput_01)
+    println!("your input is “{}” ",in_put_01)
 }
 
-
+/*
 fn main(){
     //这是个游戏
     println!("This is a game of guessing number.");
@@ -2904,9 +2906,11 @@ fn main() {
     println!("现在打印到这里{:?}", final_result);
 }
 
- */
+
 fn main() {
     let pair_01 = (1,true);
     let pair_02 = (1,false);
     println!("{:#?}", pair_01);
 }
+
+*/
