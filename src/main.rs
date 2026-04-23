@@ -238,16 +238,16 @@ fn main(){
 // 去list里找对应的元素，并打印出来；
 /*
 fn main(){
-//定义一个tumple
+//定义一个list；
     let a = [5,6,7,8,9];
-//建立一个数字字符变量
+//建立一个数字字符变量；
     let mut input_number = String::new();
-//输入这个数字字符并变成usize类型
+//输入这个数字字符并变成usize类型；
     io::stdin()
         .read_line(&mut input_number)
         .expect("You got wrong input");
     let input_number:usize = input_number.trim().parse().expect("You got wrong input");
-//把数字变成个index，打印相应index的tumple的值
+//把数字变成个index，打印相应index的tumple的值；
     let element = a[input_number];
     println!("What you strive for is the element: {}",element);
 }
@@ -265,16 +265,19 @@ fn another_function(x:i32){
  */
 
 
-//
+//倒计时3秒；
+/*
 fn main(){
-    for number in (1..4).rev(){
-        println!(" {}", number);
+    for n in (1..4).rev(){
+        println!(" {}", n);
     }
     println!("time out");
 }
+ */
 
+
+//引用，对一个可变变量s创建了两个引用，然后打印出来；
 /*
-//引用
 fn main(){
     let mut s = String::from("hello");
     let s1 = &s;
@@ -282,22 +285,23 @@ fn main(){
     println!("{} and {}",s1,s2);
     println!("{} or {}",s1,s2);
 }
+*/
 
 
-
-
-一个矩形的面积计算（struct、impl）
+//一个矩形的面积计算（struct、impl）；
+/*
+//在这个世界里，定义了一个“矩形”这个东西的存在，它有两个属性；
 struct Rectangle{
     width:i32,
     height:i32,
 }
-
+//给矩形安装了一个工具，这个工具是area，它能返回给我一个属性乘积；
 impl Rectangle {
     fn area(&self) -> i32 {
         self.width * self.height
     }
 }
-
+//定义main函数；
 fn main(){
     let rect01 = Rectangle{
         width: 30,
@@ -307,19 +311,40 @@ fn main(){
 }
 
 
-tuple，和 调用其中的元素
+//tuple，和调用其中的元素
 fn main(){
     let mut v = vec! [5,6,9,87,8,99,66];
-    let x: &i32 = &v[2];
+
+    let x: &i32 = v[2];
     println!("The number is {}",x);
+
     let y: Option<&i32> = v.get(2);
     match y {
         Some(z) => println!("the number is {}",z),
         None => println!("i have no idea!"),
     }
 }
+*/
 
-//vector 动态数组，也要声明mut，否则不能push
+//vec
+//vector 动态数组，也要声明mutable，否则不能push；
+//如果 vec[0] 直接返回引用，那么 let x = vec[0];
+// 就会把引用赋给 x，但很多时候用户想要的是复制值，就需要写成 let x = *vec[0];。
+// 这会与大多数编程语言的习惯完全相反（C、Java、Python 等语言的索引操作都返回值）。
+// Rust 为了保持语法的直观性（索引应该得到元素本身），选择让 [] 返回 T，而借用需要显式加 &。
+fn main(){
+    let mut vec_01 = Vec::new();
+    vec_01.push(0);
+    vec_01.push(1);
+    vec_01.push(2);
+    vec_01.push(3);
+    // let _: () = vec_01;
+    let m:&i32 =&vec_01[0];
+    println!("m = {}", m);
+}
+
+
+/*
 fn main(){
     let mut v = vec![5,6,8,9,78,4,56];
     v.push(4545);
