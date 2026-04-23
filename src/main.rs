@@ -253,7 +253,8 @@ fn main(){
 }
  */
 
-//函数的定义
+//函数的定义，可以在main之外定义一个函数；
+/*
 fn main(){
     another_function(5);
 }
@@ -261,7 +262,10 @@ fn main(){
 fn another_function(x:i32){
     println!("The number is {}",x);
 }
+ */
 
+
+//
 fn main(){
     for number in (1..4).rev(){
         println!(" {}", number);
