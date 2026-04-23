@@ -175,13 +175,17 @@ fn main(){
 }
  */
 
-//元组的定义、寻找元组的第N个元素
+//元组的定义、寻找元组的第2个元素;
+/*
 fn main(){
     let tum_try:(u32,f32,i64) =(12,87.02,95);
     let tum_01 =tum_try.1;
     println!("{}",tum_01);
 }
+ */
 
+//猜数字游戏
+/*
 fn main(){
     println!("Welcome to RustRover!");
     println!("This is a guessing-number game!");
@@ -228,8 +232,11 @@ fn main(){
     //打印出猜测数字
     println!("The secret number is {}",sec_number);
 }
+ */
 
-
+//建立一个新的list，然后建立一个新的字符，把字符变成usize类型，即无符号整数，然后把这个整数作为一个索引，
+// 去list里找对应的元素，并打印出来；
+/*
 fn main(){
 //定义一个tumple
     let a = [5,6,7,8,9];
@@ -241,11 +248,12 @@ fn main(){
         .expect("You got wrong input");
     let input_number:usize = input_number.trim().parse().expect("You got wrong input");
 //把数字变成个index，打印相应index的tumple的值
-    let ele = a[input_number];
-    println!("What you strive for is the element: {}",ele);
+    let element = a[input_number];
+    println!("What you strive for is the element: {}",element);
 }
+ */
 
-函数
+//函数的定义
 fn main(){
     another_function(5);
 }
