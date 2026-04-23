@@ -269,7 +269,8 @@ fn main(){
     println!("time out");
 }
 
-引用
+/*
+//引用
 fn main(){
     let mut s = String::from("hello");
     let s1 = &s;
