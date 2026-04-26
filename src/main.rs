@@ -332,6 +332,7 @@ fn main(){
 // 就会把引用赋给 x，但很多时候用户想要的是复制值，就需要写成 let x = *vec[0];。
 // 这会与大多数编程语言的习惯完全相反（C、Java、Python 等语言的索引操作都返回值）。
 // Rust 为了保持语法的直观性（索引应该得到元素本身），选择让 [] 返回 T，而借用需要显式加 &。
+/*
 fn main(){
     let mut vec_01 = Vec::new();
     vec_01.push(0);
@@ -343,35 +344,73 @@ fn main(){
     println!("m = {}", m);
 }
 
+ */
 
+//如下代码仅用于练习vec和for loop；
 /*
 fn main(){
     let mut v = vec![5,6,8,9,78,4,56];
-    v.push(4545);
-    // for n in v.iter(){
-    //     println!("{}",n);
-    // }
-    // v.sort();
-    // for m in v.iter(){
-    //     println!("{}",m);
-    // }
-    for i in &v{
-        println!("{}",i);
-    }
-    v.sort();
-    for mut o in &mut v{
-        *o += 1;
-        let mut u = vec![];
-        u.push(o);
-        for p in u.iter_mut(){
-            println!("element in u is: {}",p);
+   //  v.push(4545);
+   // v.sort();
+   //  for i in &v{
+   //      println!("{}",i);
+   //  };
+   //  v.sort();
+    for mut o in v {
+        o = o + 1;
+        let mut o_vec = vec![];
+        o_vec.push(o);
+        for p in o_vec {
+            println!("element in o_vec is {}",p);
         }
-        // println!("{}",o);
+    }
+    // for mut o in &mut v{
+    //     *o += 1;
+    //     let mut u = vec![];
+    //     u.push(o);
+    //     for p in u.iter_mut(){
+    //         println!("element in u is: {}",p);
+    //     }
+    //     // println!("{}",o);
+    // }
+}
+ */
+
+//vec的使用
+/*
+fn main(){
+    let mut vec_03 = vec![23,4,5,6,7,8,9,0];
+    vec_03.push(32);
+
+    for i in &mut vec_03{
+        println!("{}",i);
+    };
+
+    let mut vec_04 = Vec::new();
+    for mut p in  vec_03{
+        p += 1;
+        vec_04.push(p);
+    }
+
+    for w in vec_04{
+        println!("{}",w);
     }
 }
 
-字符串string
-fn main(){
+ */
+
+
+//字符串string
+/*
+fn main() {
+    let string_01 = String::new();
+    let string_02 = String::from("SIR!");
+    let data_push = "Can not release!";
+    let mut string_03 = data_push.to_string();
+    // println!("{}", string_03);
+    string_03.push_str("dfdfdfdfdfdfdfdf");
+    println!("{}", string_03);
+
     // let mut s = String::new();
     let s = String::from("SIR!");
     let data_push = "Can not release!";
@@ -380,20 +419,32 @@ fn main(){
     y.push_str("\nyes");
     println!("{}\n{}\n{}",s,y,data_push);
 }
+*/
 
-字符串string,add+,format!;
+//字符串string,add+,format!;
+/*
 fn main(){
     let mut s1 = String::new();
     let mut s2 = String::new();
-    s1.push_str("hello,");
+    s1.push_str("Hello, ");
     s2.push_str("world!");
-    // let mut s3 = s1 + &s2;
-    // println!("{}",s3);
-    // println!("{}",s1);
-    let s3 = format!("{}-{}",s1,s2);
-    println!("{}:",s3);
+    let mut s3 = s1+&s2;
+    println!("{}",s3);
+
 }
 
+ */
+//     let mut s1 = String::new();
+//     let mut s2 = String::new();
+//     s1.push_str("hello,");
+//     s2.push_str("world!");
+//     // let mut s3 = s1 + &s2;
+//     // println!("{}",s3);
+//     // println!("{}",s1);
+//     let s3 = format!("{}-{}",s1,s2);
+//     println!("{}:",s3);
+// }
+/*
 fn main(){
     let mut s = String::from("hello");
     for mut i in s.chars(){
@@ -401,7 +452,15 @@ fn main(){
     }
 }
 
+ */
+// fn main() {
+//     let string_01=String::from("Today is a new day!");
+//     for i in string_01.chars(){
+//         println!("{}",i);
+//     }
+// }
 
+/*
 fn main(){
     let mut scores_h = HashMap::new();
     scores_h.insert(String::from("blue"), 10);
